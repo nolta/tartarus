@@ -31,12 +31,20 @@ if [ ! -d $TARTARUS_LOG_DIR ]; then
 fi
 
 # fix complaints that this file is missing
-SYSCONFIG=/usr/local/lib/erlang/releases/R12B/sys.config
-[ -f $SYSCONFIG ] || echo "[]." > $SYSCONFIG
+OTP_RELEASE=`$ERL -noshell -eval "io:format(erlang:system_info(otp_release))." -s erlang halt`
+SYSCONFIG=/usr/local/lib/erlang/releases/$OTP_RELEASE/sys.config
+if [ ! -f $SYSCONFIG ]; then
+    echo "creating $SYSCONFIG"
+    echo "[]." > $SYSCONFIG
+fi
 
 # config files and init script
 [ -d /etc/tartarus ] || mkdir /etc/tartarus
-[ -f /etc/tartarus/config ] || install -m 644 config /etc/tartarus
+if [ -f /etc/tartarus/config ]; then
+    echo "/etc/tartarus/config already exists; not overwriting"
+else
+    install -m 644 config /etc/tartarus
+fi
 install -m 755 start /etc/tartarus
 install -m 755 stop /etc/tartarus
 install -m 755 init /etc/init.d/tartarus
