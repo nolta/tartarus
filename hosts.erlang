@@ -1,0 +1,7 @@
+%
+% List of hosts to connect to, used by net_adm:world().
+% One hostname per line, in single quotes, e.g.:
+%
+%   'hostname1'.
+%   'hostname2'.
+%

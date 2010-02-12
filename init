@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# chkconfig: 345 99 01
+# description: Starts the tartarus application
+#  
+### BEGIN INIT INFO
+# Provides: tartarus
+# Required-Start: $local_fs $network $remote_fs $time
+# Required-Stop: $local_fs $network $remote_fs $time
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: start and stop tartarus
+### END INIT INFO
+
+. /etc/tartarus/config
+
+killproc() {            # kill the named process(es)
+    pid=`/bin/ps -e |
+         /bin/grep -w $1 |
+         /bin/sed -e 's/^  *//' -e 's/ .*//'`
+    [ "$pid" != "" ] && kill $pid
+}
+
+# Start/stop processes required for Erlang
+# (pretty primitive at the moment)
+
+start() {
+    echo "Starting tartarus"
+    su - $TARTARUS_USER -c "/etc/tartarus/start" &
+}
+
+stop() {
+    echo "Stopping tartarus"
+    su - $TARTARUS_USER -c "/etc/tartarus/stop"
+    #killproc beam
+}
+
+case "$1" in
+'start')
+    start
+    ;;
+'stop')
+    stop
+    ;;
+'restart')
+    stop
+    start
+    ;;
+*)
+    echo "Usage: $0 { start | stop | restart }"
+    ;;
+esac
+

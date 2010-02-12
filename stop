@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. /etc/tartarus/config
+
+if [ -z "$ERL_CALL" ]; then
+    ERL_INTERFACE=`$ERL -noshell -eval "io:format(code:lib_dir(erl_interface))." -s erlang halt`
+    ERL_CALL=$ERL_INTERFACE/bin/erl_call
+fi
+
+$ERL_CALL -sname $SHORTNAME -a 'init stop'
+

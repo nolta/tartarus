@@ -1,0 +1,40 @@
+
+Tartarus: init script for Erlang applications
+=============================================
+
+Based on the "Embedded Solaris" chapter in the Erlang/OTP Embedded Systems
+User's Guide. I'm not an Erlang expert, so suggestions are welcome!
+
+Installing
+----------
+
+* [optional] Add hostnames to "hosts.erlang". This file gets installed in
+$TARTARUS_HOME as ".hosts.erlang".
+
+* Edit "erlang.cookie". This file gets installed in $TARTARUS_HOME as
+".erlang.cookie", and is the mechanism for authenticating distributed Erlang
+nodes.
+
+* Edit the "config" file. See the file for instructions. Note that any changes
+to $TARTARUS_USER, $TARTARUS_HOME, or $TARTARUS_LOG_DIR must be done before
+the next step.
+
+* Run `sudo ./install.sh`.
+
+Files
+-----
+
+    /etc/init.d/tartarus
+    /etc/tartarus/config
+    /etc/tartarus/start
+    /etc/tartarus/stop
+    $TARTARUS_HOME
+    $TARTARUS_HOME/.erlang.cookie
+    $TARTARUS_HOME/.hosts.erlang
+    $TARTARUS_LOG_DIR
+
+Caveats
+-------
+
+Known to work on Ubuntu 8.04 with Erlang/OTP R12B.
+

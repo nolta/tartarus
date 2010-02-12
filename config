@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# Tartarus config file
+#
+
+#
+# User the Erlang node runs as. Will be created during installation if it
+# doesn't exist.
+#
+TARTARUS_USER=tartarus
+TARTARUS_HOME=/home/tartarus
+
+# Directory for log files. Will be created during installation.
+TARTARUS_LOG_DIR=/var/log/tartarus
+
+# The node's short name.
+SHORTNAME=tartarus
+
+# Where erlang is installed.
+ERL_ROOT=/usr/local/lib/erlang
+
+#
+# Which release to start. 
+#
+ERL_RELEASES=$ERL_ROOT/releases
+START_ERL_DATA=$ERL_RELEASES/start_erl.data
+
+#
+# Use ERL_OPTS to pass extra flags to the runtime.
+#
+
+# e.g., connect to all hosts listed in ~tartarus/.hosts.erlang:
+ERL_OPTS="-s net_adm world"
+
+# or start mnesia:
+#ERL_OPTS="-mnesia dir '\"/home/tartarus/mnesia\"' -s mnesia start"
+
+# 
+# You shouldn't need to change anything past this point.
+#
+
+ERL=$ERL_ROOT/bin/erl
+RUN_ERL=$ERL_ROOT/bin/run_erl
+START_ERL=$ERL_ROOT/bin/start_erl
+
+# Path to the erl_call binary, used by stop script to kill node.
+# If unset, tartarus will automatically discover its location.
+#ERL_CALL=/usr/local/lib/erlang/lib/erl_interface-3.5.9/bin/erl_call
+

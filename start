@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. /etc/tartarus/config
+
+$RUN_ERL -daemon /tmp/ $TARTARUS_LOG_DIR "exec $START_ERL $ERL_ROOT $ERL_RELEASES $START_ERL_DATA -sname $SHORTNAME $ERL_OPTS"
+
